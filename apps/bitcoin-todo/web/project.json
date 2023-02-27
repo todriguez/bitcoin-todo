@@ -1,0 +1,81 @@
+{
+  "name": "bitcoin-todo-web",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/bitcoin-todo/web/src",
+  "prefix": "bitcoin-todo",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/bitcoin-todo/web",
+        "index": "apps/bitcoin-todo/web/src/index.html",
+        "main": "apps/bitcoin-todo/web/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/bitcoin-todo/web/tsconfig.app.json",
+        "assets": [
+          "apps/bitcoin-todo/web/src/favicon.ico",
+          "apps/bitcoin-todo/web/src/assets"
+        ],
+        "styles": ["apps/bitcoin-todo/web/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "bitcoin-todo-web:build:production"
+        },
+        "development": {
+          "browserTarget": "bitcoin-todo-web:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "bitcoin-todo-web:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/bitcoin-todo/web/**/*.ts",
+          "apps/bitcoin-todo/web/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
